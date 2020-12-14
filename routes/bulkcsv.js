@@ -5,7 +5,7 @@ const axios = require("axios");
 
 module.exports = function (file) {
   csvtojson()
-    .fromFile("csvfile.csv")
+    .fromFile(file)
     .then((csvData) => {
       csvData.forEach((item) => {
         axios

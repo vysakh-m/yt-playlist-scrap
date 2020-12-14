@@ -1,0 +1,21 @@
+body {
+  background-color: #cccc99;
+}
+
+.thumbtitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.pltitle {
+  align-self: center;
+}
+
+.whitewash {
+  background-color: #fff;
+}
+
+.videorelated {
+  display: flex;
+}
