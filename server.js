@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const csvRead = require("./routes/bulkcsv");
 const app = express();
 // const path       = require('path');
 //Body-Parser
@@ -29,6 +30,8 @@ app.use("/main", require("./routes/main"));
 //     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 //   });
 // }
+
+csvRead("Hello");
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
