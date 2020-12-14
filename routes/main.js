@@ -3,7 +3,7 @@ const router = express();
 const axios = require("axios");
 var validUrl = require("valid-url");
 
-const Main = require("../models/main");
+const MainModel = require("../models/main");
 
 var generic_data = {};
 var video_final_data = [];
@@ -77,12 +77,33 @@ router.post("/yt-playlist", (req, res) => {
             "&key=AIzaSyDBGx3Qw0n2mkHY0HJ4m_9UVeG_434tsGY"
         )
         .then(async (response1) => {
-          generic_data["count"] = response1.data.pageInfo.totalResults;
+          generic_data["count"] = parseInt(
+            response1.data.pageInfo.totalResults
+          );
           var load = response1.data.items;
           video_final = await finalAxios(load);
-          return res.json({ generic: generic_data, video: video_final });
+          var final_entry = new MainModel({
+            generic: generic_data,
+            video: video_final,
+          });
+          final_entry.save(function (err) {
+            if (err) throw err;
+            // saved!
+            console.log("SAVED");
+          });
+
+          return res.json({
+            generic: generic_data,
+            video: video_final,
+          });
         });
     });
+});
+
+router.get("/list", (req, res) => {
+  MainModel.find({}).then((result) => {
+    return res.json(result);
+  });
 });
 
 module.exports = router;

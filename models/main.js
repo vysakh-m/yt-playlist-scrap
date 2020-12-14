@@ -2,33 +2,45 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const mainSchema = new Schema({
-  email: {
-    type: String,
-    required: true,
+  generic: {
+    title: {
+      type: String,
+      required: true,
+    },
+    desc: {
+      type: String,
+    },
+    thumbnail: {
+      type: String,
+      required: true,
+    },
+    count: {
+      type: Number,
+      required: true,
+    },
   },
-  data: [
+  video: [
     {
-      name: {
+      title: {
         type: String,
         required: true,
       },
-      label: {
+      url: {
         type: String,
         required: true,
       },
-      status: {
+      id: {
         type: String,
         required: true,
       },
-      priority: {
+      desc: {
+        type: String,
+      },
+      thumbnail: {
         type: String,
         required: true,
       },
-      date: {
-        type: String,
-        required: true,
-      },
-      time: {
+      length: {
         type: String,
         required: true,
       },
@@ -36,4 +48,4 @@ const mainSchema = new Schema({
   ],
 });
 
-module.exports = list = mongoose.model("main", mainSchema);
+module.exports = main = mongoose.model("main", mainSchema);
