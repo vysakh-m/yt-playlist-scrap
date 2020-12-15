@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import "./style/main.css";
 import axios from "axios";
+import Spinner from "./extras/Spinner";
 
 export default class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: "",
+      loading: false,
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.normalData = this.normalData.bind(this);
+    this.loading = this.loading.bind(this);
   }
 
   onSubmit(e) {
@@ -18,8 +22,9 @@ export default class Search extends Component {
     const data = {
       data: this.state.data,
     };
-
+    this.setState({ loading: true });
     axios.post("/main/yt-playlist", data).then((data) => {
+      this.setState({ loading: false });
       this.props.history.push({
         pathname: "/result",
         state: data.data,
@@ -30,8 +35,14 @@ export default class Search extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
+    if (this.state.loading == false) {
+      console.log("False");
+    } else {
+      console.log("True");
+    }
   }
-  render() {
+
+  normalData() {
     return (
       <div class="s003">
         <form onSubmit={this.onSubmit}>
@@ -68,5 +79,17 @@ export default class Search extends Component {
         </form>
       </div>
     );
+  }
+
+  loading() {
+    return (
+      <div style={{ backgroundColor: "#fff", height: "100vh" }}>
+        <Spinner />
+      </div>
+    );
+  }
+
+  render() {
+    return this.state.loading ? this.loading() : this.normalData();
   }
 }

@@ -2,8 +2,10 @@ const express = require("express");
 const router = express();
 const axios = require("axios");
 var validUrl = require("valid-url");
+var keys = require("../config/keys");
 
 const MainModel = require("../models/main");
+const YT_KEY = keys.yt_key;
 
 //====================STEP 1=====================
 
@@ -35,7 +37,8 @@ var finalAxios = async function (load) {
       .get(
         "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" +
           load[i].snippet.resourceId.videoId +
-          "&key=AIzaSyDBGx3Qw0n2mkHY0HJ4m_9UVeG_434tsGY"
+          "&key=" +
+          YT_KEY
       )
       .then(async (response2) => {
         video_data["length"] = toNormalDuration(
@@ -62,7 +65,8 @@ router.post("/yt-playlist", (req, res) => {
     .get(
       "https://www.googleapis.com/youtube/v3/playlists?part=snippet&id=" +
         id +
-        "&key=AIzaSyDBGx3Qw0n2mkHY0HJ4m_9UVeG_434tsGY"
+        "&key=" +
+        YT_KEY
     )
     .then(async (response) => {
       generic_data = {
@@ -76,7 +80,8 @@ router.post("/yt-playlist", (req, res) => {
         .get(
           "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=100&playlistId=" +
             id +
-            "&key=AIzaSyDBGx3Qw0n2mkHY0HJ4m_9UVeG_434tsGY"
+            "&key=" +
+            YT_KEY
         )
         .then(async (response1) => {
           generic_data["count"] = parseInt(

@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import Search from "./components/Search";
 import Navbar from "./components/Navbar";
 import Singleresult from "./components/Singleresult";
-// import { Router } from "react-router-dom";
-// import { BrowserRouter as Route } from "react-router-dom";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
